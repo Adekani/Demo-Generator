@@ -4,60 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Premium Solar Solutions</title>
-    <meta name="description" content="Welcome to your new solar installation partner. High quality, premium solar energy solutions.">
     
-    <!-- Google Fonts for a Premium Look -->
+    <!-- Google Fonts for Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary: #f59e0b; /* Vibrant amber/sun color */
-            --primary-hover: #d97706;
-            --secondary: #0f172a; /* Deep slate/blue */
-            --text-main: #1e293b;
-            --text-light: #64748b;
-            --bg-color: #f8fafc;
-            --white: #ffffff;
+            --primary: #FBBF24; /* Amber/Solar Gold */
+            --primary-glow: rgba(251, 191, 36, 0.15);
+            --bg-body: #050810;
+            --bg-app: #0B0F19;
+            --surface: #131B2D;
+            --surface-light: #1E293B;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border: rgba(255, 255, 255, 0.08);
             --radius: 16px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-color);
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
 
-        /* --- Loader --- */
+        /* Mobile App Containerization */
+        .app-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: var(--bg-app);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            overflow-x: hidden;
+            display: none; /* Hidden until loaded */
+        }
+
+        /* Initial Loader */
         #loader {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--secondary);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-app);
+            z-index: 999;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--white);
-            z-index: 9999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
         }
 
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--surface-light);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -66,267 +76,344 @@
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- Error State --- */
-        #error-state {
-            display: none;
-            min-height: 100vh;
-            text-align: center;
-            padding: 40px 20px;
-            background: var(--bg-color);
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        /* --- Navigation --- */
-        nav {
+        /* Typography & Utilities */
+        h1, h2, h3 { font-weight: 700; line-height: 1.2; }
+        .text-primary { color: var(--primary); }
+        .text-muted { color: var(--text-muted); }
+        
+        /* Header & Navigation */
+        header {
             position: fixed;
-            top: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 1000;
+            top: 0;
+            width: 100%;
+            max-width: 480px; /* Aligns with app container */
+            margin: 0 auto;
+            left: 0; right: 0;
+            height: 70px;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 0 24px;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
         }
 
         .logo {
-            font-weight: 800;
             font-size: 1.25rem;
-            color: var(--secondary);
+            font-weight: 700;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 8px;
-            text-decoration: none;
         }
 
         .logo svg {
             color: var(--primary);
-            width: 24px; height: 24px;
         }
 
-        .menu-btn {
+        /* Hamburger Menu */
+        .hamburger {
             background: none;
             border: none;
-            color: var(--secondary);
-            font-size: 24px;
+            color: var(--text-main);
             cursor: pointer;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 110;
         }
 
-        /* --- Hero Section --- */
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-main);
+            transition: 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Fullscreen Menu Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            left: 0; right: 0;
+            height: 100vh;
+            background: var(--surface);
+            z-index: 105;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .menu-overlay.open {
+            transform: translateY(0);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-link.active, .nav-link:active {
+            color: var(--primary);
+        }
+
+        /* Page Routing System */
+        .page {
+            display: none;
+            padding-top: 70px; /* Offset for header */
+            padding-bottom: 60px;
+            min-height: 100vh;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 99px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+
+        .btn-primary:active { transform: scale(0.98); }
+
+        /* Section Layouts */
+        .section-header {
+            padding: 32px 24px 24px;
+        }
+        
+        .section-header h2 { font-size: 2rem; margin-bottom: 8px; }
+        .section-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Home Page - Hero */
         .hero {
             position: relative;
-            padding: 120px 24px 80px;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--white);
-            text-align: center;
-            overflow: hidden;
+            height: 60vh;
+            min-height: 450px;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px 24px;
+            background-image: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(245,158,11,0.15) 0%, rgba(255,255,255,0) 60%);
-            z-index: 0;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(11,15,25,0.2) 0%, rgba(11,15,25,0.95) 100%);
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 10;
+            width: 100%;
         }
 
         .badge {
             display: inline-block;
-            background: rgba(245, 158, 11, 0.2);
+            padding: 6px 14px;
+            background: var(--primary-glow);
             color: var(--primary);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            border: 1px solid var(--primary);
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
         }
 
         .hero h1 {
             font-size: 2.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
-
-        .hero p {
-            font-size: 1.125rem;
-            color: #cbd5e1;
-            margin-bottom: 32px;
-            font-weight: 300;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--primary);
-            color: var(--white);
-            padding: 16px 32px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.125rem;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.4);
-        }
-
-        .btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-        }
-
-        /* --- Stats / Trust Section --- */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            padding: 32px 24px;
-            background: var(--white);
-            margin-top: -20px;
-            position: relative;
-            z-index: 2;
-            border-radius: 24px 24px 0 0;
-            box-shadow: 0 -10px 25px rgba(0,0,0,0.05);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--secondary);
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        /* --- Features Section --- */
-        .features {
-            padding: 60px 24px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .section-header h2 {
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 16px;
-        }
-
-        .section-header p {
-            color: var(--text-light);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-
-        .card {
-            background: var(--white);
-            padding: 32px 24px;
-            border-radius: var(--radius);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.02);
-            transition: var(--transition);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-        }
-
-        .card-icon {
-            width: 56px;
-            height: 56px;
-            background: rgba(245, 158, 11, 0.1);
-            color: var(--primary);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
-        .card-icon svg {
-            width: 28px; height: 28px;
-        }
-
-        .card h3 {
-            font-size: 1.25rem;
-            color: var(--secondary);
             margin-bottom: 12px;
         }
 
-        .card p {
-            color: var(--text-light);
-            font-size: 0.95rem;
+        .hero p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 1.05rem;
         }
 
-        /* --- CTA Section --- */
-        .cta-section {
-            background: var(--secondary);
-            color: var(--white);
-            padding: 80px 24px;
+        /* Stats Row */
+        .stats-row {
+            display: flex;
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .stat {
+            flex: 1;
             text-align: center;
-            border-radius: 32px 32px 0 0;
+            border-right: 1px solid var(--border);
+        }
+        
+        .stat:last-child { border-right: none; }
+        .stat h3 { font-size: 1.25rem; color: var(--primary); margin-bottom: 4px; }
+        .stat p { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;}
+
+        /* Content Blocks */
+        .content-block {
+            padding: 0 24px 32px;
         }
 
-        .cta-section h2 {
-            font-size: 2rem;
+        .content-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .content-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
             margin-bottom: 20px;
         }
 
-        .cta-section p {
-            color: #cbd5e1;
-            margin-bottom: 40px;
+        /* Services */
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--surface-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: var(--primary);
         }
 
-        /* --- Footer --- */
+        .service-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .service-card h3 { margin-bottom: 8px; font-size: 1.15rem; }
+        .service-card p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Projects Gallery */
+        .gallery { padding: 0 24px 24px; }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 16px;
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 24px 16px 16px;
+        }
+
+        /* Forms */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 0 24px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 16px; /* Prevents iOS Zoom */
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary);
+        }
+
+        textarea { resize: vertical; min-height: 120px; }
+
+        .contact-info {
+            padding: 32px 24px;
+            margin-top: 16px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
         footer {
-            background: #0b1120;
-            color: var(--text-light);
-            padding: 40px 24px;
             text-align: center;
-            font-size: 0.875rem;
+            padding: 32px 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
         }
 
-        /* Desktop optimizations for scalability */
-        @media (min-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .hero {
-                padding: 160px 48px 100px;
-            }
-            .hero h1 {
-                font-size: 4rem;
-            }
-        }
     </style>
 </head>
 <body>
@@ -334,226 +421,372 @@
     <!-- Loading Screen -->
     <div id="loader">
         <div class="spinner"></div>
-        <p>Configuring your premium demo...</p>
+        <div style="color: var(--text-muted); font-size: 0.9rem;">Connecting to grid...</div>
     </div>
 
-    <!-- Error State -->
-    <div id="error-state">
-        <svg style="width:64px;height:64px;color:var(--text-light);margin-bottom:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-        <h2 style="color:var(--secondary);margin-bottom:8px;">Demo Not Found</h2>
-        <p style="color:var(--text-light);">We couldn't locate this solar demo. Please check the URL and try again.</p>
-    </div>
-
-    <!-- Main Application UI -->
-    <div id="app" style="display: none;">
+    <!-- Main Mobile Container -->
+    <div class="app-container" id="app">
         
-        <!-- Navigation -->
-        <nav>
-            <a href="#" class="logo">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                <span id="brand-logo-text">Brand</span>
-            </a>
-            <button class="menu-btn">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
-
-        <!-- Hero Section -->
-        <header class="hero">
-            <div class="hero-content">
-                <div class="badge">Next-Gen Solar Energy</div>
-                <h1>Powering <br><span class="brand-name-insert" style="color: var(--primary);">Your Brand</span></h1>
-                <p>Switch to clean, reliable, and premium solar energy today. We design intelligent energy systems that cut costs and power your future.</p>
-                <a href="#quote" class="btn">Get Your Free Quote</a>
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2"></path><path d="M12 20v2"></path>
+                    <path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path>
+                    <path d="M2 12h2"></path><path d="M20 12h2"></path>
+                    <path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>
+                </svg>
+                <span class="brand-name-nav">SolarTech</span>
             </div>
+            <button class="hamburger" id="menuBtn" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
         </header>
 
-        <!-- Stats Bar -->
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">98%</div>
-                <div class="stat-label">Efficiency</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">24/7</div>
-                <div class="stat-label">Monitoring</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">25yr</div>
-                <div class="stat-label">Warranty</div>
-            </div>
-        </div>
+        <!-- Fullscreen Mobile Navigation -->
+        <nav class="menu-overlay" id="mobileMenu">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About Us</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
 
-        <!-- Features Section -->
-        <section class="features">
-            <div class="section-header">
-                <h2>Why Choose <span class="brand-name-insert">Us</span>?</h2>
-                <p>Industry-leading technology paired with flawless installation.</p>
-            </div>
-            
-            <div class="grid">
-                <!-- Feature 1 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        <main>
+            <!-- PAGE: HOME -->
+            <section id="home" class="page active">
+                <div class="hero">
+                    <div class="hero-content">
+                        <span class="badge">Next Gen Energy</span>
+                        <h1>Powering tomorrow, <span class="text-primary">today.</span></h1>
+                        <p><span class="brand-name-full">SolarTech</span> brings premium, sustainable solar energy solutions directly to your doorstep.</p>
+                        <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
                     </div>
-                    <h3>Maximum Output</h3>
-                    <p>Our Tier-1 monocrystalline panels capture more sunlight, ensuring your home stays powered even on cloudy days.</p>
                 </div>
                 
-                <!-- Feature 2 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3>Slash Energy Bills</h3>
-                    <p>Protect yourself from rising utility costs. Our customers save thousands over the lifetime of their system.</p>
+                <div class="stats-row">
+                    <div class="stat"><h3>25yr</h3><p>Warranty</p></div>
+                    <div class="stat"><h3>24/7</h3><p>Support</p></div>
+                    <div class="stat"><h3>100%</h3><p>Clean</p></div>
                 </div>
 
-                <!-- Feature 3 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <h3>Peace of Mind</h3>
-                    <p><span class="brand-name-insert">Our Company</span> handles everything from permits to installation, backed by a comprehensive warranty.</p>
+                <div class="section-header">
+                    <h2>Why Choose Us?</h2>
+                    <p>Experience the difference of tier-one installation.</p>
                 </div>
-            </div>
-        </section>
+                <div class="content-block">
+                    <div class="content-card">
+                        <h3 style="margin-bottom: 8px;">Zero Down Options</h3>
+                        <p class="text-muted">Switch to renewable energy with flexible financing tailored to your lifestyle. We make sustainability affordable.</p>
+                    </div>
+                    <a href="#services" class="btn btn-primary" style="background: var(--surface); color: var(--text-main); border: 1px solid var(--border); box-shadow: none;">View All Services</a>
+                </div>
+            </section>
 
-        <!-- Call to Action -->
-        <section class="cta-section" id="quote">
-            <h2>Ready to switch to solar?</h2>
-            <p>Join the clean energy revolution with <span class="brand-name-insert">Our Brand</span> today.</p>
-            <button class="btn" style="background: var(--white); color: var(--secondary);">Request a Consultation</button>
-        </section>
+            <!-- PAGE: ABOUT -->
+            <section id="about" class="page">
+                <div class="section-header">
+                    <h2>About <span class="text-primary brand-name-full">SolarTech</span></h2>
+                    <p>Pioneering the green energy revolution.</p>
+                </div>
+                <div class="content-block">
+                    <div class="content-card">
+                        <img src="https://images.unsplash.com/photo-1592833159057-69550e1efcb2?auto=format&fit=crop&w=800&q=80" alt="Solar Team">
+                        <h3 style="margin-bottom: 12px;">Our Mission</h3>
+                        <p class="text-muted">At <span class="brand-name-full">SolarTech</span>, our goal is to eliminate grid dependency. Founded by industry veterans, we engineer high-efficiency solar infrastructures designed to outlast and outperform.</p>
+                    </div>
+                    
+                    <div class="content-card" style="background: transparent; border: none; padding: 0;">
+                        <h3 style="margin-bottom: 16px;">The Process</h3>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div style="display: flex; gap: 16px;">
+                                <div style="color: var(--primary); font-weight: 700; font-size: 1.2rem;">01.</div>
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Consultation</h4>
+                                    <p class="text-muted" style="font-size: 0.85rem;">Free site assessment and custom system design.</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 16px;">
+                                <div style="color: var(--primary); font-weight: 700; font-size: 1.2rem;">02.</div>
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Permitting</h4>
+                                    <p class="text-muted" style="font-size: 0.85rem;">We handle all local regulations and HOA approvals.</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 16px;">
+                                <div style="color: var(--primary); font-weight: 700; font-size: 1.2rem;">03.</div>
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Installation</h4>
+                                    <p class="text-muted" style="font-size: 0.85rem;">Fast, pristine installation by certified technicians.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Footer -->
+            <!-- PAGE: SERVICES -->
+            <section id="services" class="page">
+                <div class="section-header">
+                    <h2>Our <span class="text-primary">Services</span></h2>
+                    <p>End-to-end solutions for total energy independence.</p>
+                </div>
+                
+                <div class="content-block">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        </div>
+                        <h3>Residential Solar</h3>
+                        <p>Elevate your home's value and slash utility bills with premium, low-profile rooftop arrays built to weather any storm.</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                        </div>
+                        <h3>Commercial Solar</h3>
+                        <p>Large-scale energy generation designed to offset operational costs and hit corporate sustainability targets.</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><rect x="4" y="6" width="16" height="16" rx="2" ry="2"></rect><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+                        </div>
+                        <h3>Battery Storage</h3>
+                        <p>Store your excess daytime power to use at night or during grid outages. Ultimate reliability and control.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE: PROJECTS -->
+            <section id="projects" class="page">
+                <div class="section-header">
+                    <h2>Recent <span class="text-primary">Installs</span></h2>
+                    <p>Explore our craftmanship across the region.</p>
+                </div>
+                
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=800&q=80" alt="Project 1">
+                        <div class="gallery-overlay">
+                            <h3 style="font-size: 1.1rem;">Modern Residential</h3>
+                            <p class="text-primary" style="font-size: 0.85rem; font-weight: 600;">12.4 kW System</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?auto=format&fit=crop&w=800&q=80" alt="Project 2">
+                        <div class="gallery-overlay">
+                            <h3 style="font-size: 1.1rem;">Commercial Facility</h3>
+                            <p class="text-primary" style="font-size: 0.85rem; font-weight: 600;">150 kW Array</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1611365892117-00ac5ef43c90?auto=format&fit=crop&w=800&q=80" alt="Project 3">
+                        <div class="gallery-overlay">
+                            <h3 style="font-size: 1.1rem;">Suburban Storage</h3>
+                            <p class="text-primary" style="font-size: 0.85rem; font-weight: 600;">8 kW + Dual Battery</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE: CONTACT -->
+            <section id="contact" class="page">
+                <div class="section-header">
+                    <h2>Get in <span class="text-primary">Touch</span></h2>
+                    <p>Ready to make the switch? Let's talk.</p>
+                </div>
+                
+                <form id="contactForm">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="tel" placeholder="Phone Number">
+                    <textarea placeholder="How can we help?" required></textarea>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
+                </form>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        <span class="brand-domain">hello@solartech.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        <span>+1 (800) 555-0199</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span>Serving the Metro Area</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
         <footer>
-            <p>&copy; <span id="current-year">2026</span> <span class="brand-name-insert">Brand</span>. All rights reserved.</p>
+            <p>&copy; <span id="year"></span> <span class="brand-name-full">SolarTech</span>. All rights reserved.</p>
         </footer>
-
     </div>
 
-    <!-- Supabase JS Integration -->
+    <!-- Application Logic -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
 
-        // 1. Configure Supabase (Matching the Dashboard configuration)
+        // 1. Database Configuration
         const SUPABASE_URL = 'https://xsdudtnszfszlvjpqrij.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzZHVkdG5zemZzemx2anBxcmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE1NjkwOTIsImV4cCI6MjA4NzE0NTA5Mn0.v51jTNwUGBMzX4PlAdBMNSj25XBVirLhiqStKSsFBuw';
-        
         const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // 2. Extract ID from URL (Supports both ?id=123 and #id=123 or #123)
-        function getDemoId() {
-            // Check query parameter first (e.g., ?id=uuid)
-            const urlParams = new URLSearchParams(window.location.search);
-            let id = urlParams.get('id');
+        // 2. Global State & DOM Elements
+        let businessName = "Lumina Solar"; // Fallback name
+        const loader = document.getElementById('loader');
+        const app = document.getElementById('app');
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        // 3. Initialization
+        async function init() {
+            document.getElementById('year').textContent = new Date().getFullYear();
             
-            // Fallback to URL Hash if query param is missing (e.g., #id=uuid or #uuid)
-            if (!id && window.location.hash) {
-                const hashParams = new URLSearchParams(window.location.hash.substring(1));
-                id = hashParams.get('id') || window.location.hash.substring(1);
-            }
-            return id;
-        }
+            // Extract ID from URL (e.g., ?id=...)
+            const urlParams = new URLSearchParams(window.location.search);
+            const demoId = urlParams.get('id');
 
-        // 3. Format Logo text (Creates acronym if name is too long for mobile)
-        function formatLogoName(name) {
-            // If the name is longer than 15 characters and contains spaces, make an acronym
-            if (name.length > 15 && name.includes(' ')) {
-                const words = name.trim().split(/\s+/);
-                // Ensure we actually have multiple words to make an acronym
-                if (words.length > 1) {
-                    return words.map(word => word.charAt(0).toUpperCase()).join('');
+            if (demoId) {
+                try {
+                    const { data, error } = await supabase
+                        .from('Demos')
+                        .select('business_name')
+                        .eq('id', demoId)
+                        .single();
+                    
+                    if (data && data.business_name) {
+                        businessName = data.business_name;
+                    }
+                } catch (err) {
+                    console.error('Error fetching brand data:', err);
                 }
             }
-            // Return full name if short enough or single word
-            return name;
+
+            applyBranding();
+            setupRouting();
+            handleRoute(); // initial render
+
+            // Fade out loader, show app
+            loader.style.opacity = '0';
+            app.style.display = 'block';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 400);
         }
 
-        // 4. Update the DOM with the brand data
-        function applyBrandData(businessName) {
-            // Update Document Title & Meta Description
-            document.title = `${businessName} | Premium Solar Solutions`;
-            const metaDesc = document.querySelector('meta[name="description"]');
-            if (metaDesc) {
-                metaDesc.setAttribute("content", `Discover premium solar installations by ${businessName}. Switch to clean energy today.`);
-            }
+        // 4. Branding Injection Logic
+        function applyBranding() {
+            document.title = `${businessName} | Clean Energy`;
 
-            // Update Logo Text (handled intelligently for space constraints)
-            const logoTextEl = document.getElementById('brand-logo-text');
-            if (logoTextEl) {
-                logoTextEl.textContent = formatLogoName(businessName);
-            }
-
-            // Update all standard text insertions across the page
-            const textInserts = document.querySelectorAll('.brand-name-insert');
-            textInserts.forEach(el => {
+            // Update all full names throughout the app
+            document.querySelectorAll('.brand-name-full').forEach(el => {
                 el.textContent = businessName;
+            });
+
+            // Smart Acronym Logic for Mobile Nav bar
+            let navName = businessName;
+            const words = businessName.trim().split(/\s+/);
+            
+            // If name is too long or has more than 2 words, create an acronym
+            if (businessName.length > 12 || words.length > 2) {
+                navName = words.map(word => word[0]).join('').toUpperCase();
+            }
+            
+            document.querySelectorAll('.brand-name-nav').forEach(el => {
+                el.textContent = navName;
+            });
+
+            // Generate a dummy email domain
+            const cleanDomain = businessName.toLowerCase().replace(/[^a-z0-9]/g, '');
+            document.querySelectorAll('.brand-domain').forEach(el => {
+                el.textContent = `hello@${cleanDomain}.com`;
             });
         }
 
-        // 5. Main Initialization Function
-        async function initDemo() {
-            const demoId = getDemoId();
-            const loader = document.getElementById('loader');
-            const app = document.getElementById('app');
-            const errorState = document.getElementById('error-state');
-
-            // Setup current year in footer
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            if (!demoId) {
-                // No ID provided in URL
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    errorState.style.display = 'flex';
-                }, 500);
-                return;
-            }
-
-            try {
-                // Fetch Demo data from Supabase
-                const { data, error } = await supabase
-                    .from('Demos')
-                    .select('business_name')
-                    .eq('id', demoId)
-                    .single();
-
-                if (error) throw error;
-                if (!data || !data.business_name) throw new Error('Demo data not found');
-
-                // Apply the fetched brand name to the UI
-                applyBrandData(data.business_name);
-
-                // Hide loader and show app
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    app.style.display = 'block';
-                    
-                    // Small entrance animation trigger
-                    app.style.animation = 'fadeIn 0.6s ease forwards';
-                }, 500);
-
-            } catch (err) {
-                console.error("Failed to load demo:", err);
-                
-                // Hide loader and show error state
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    errorState.style.display = 'flex';
-                }, 500);
-            }
+        // 5. Routing System (Vanilla Hash Routing)
+        function setupRouting() {
+            window.addEventListener('hashchange', handleRoute);
         }
 
-        // Run initialization when DOM is fully ready
-        document.addEventListener('DOMContentLoaded', initDemo);
+        function handleRoute() {
+            let hash = window.location.hash || '#home';
 
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Remove active class from nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show target page, fallback to home
+            const targetPage = document.querySelector(hash);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            } else {
+                document.querySelector('#home').classList.add('active');
+                hash = '#home';
+            }
+
+            // Highlight active menu link
+            const activeLink = document.querySelector(`.nav-link[href="${hash}"]`);
+            if(activeLink) activeLink.classList.add('active');
+
+            // Reset mobile menu and scroll
+            closeMenu();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 6. Mobile Menu Interactions
+        function toggleMenu() {
+            menuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        }
+
+        function closeMenu() {
+            menuBtn.classList.remove('active');
+            mobileMenu.classList.remove('open');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        // 7. Contact Form Dummy Handler
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.textContent = 'Message Sent!';
+                btn.style.background = '#10B981'; /* Success Green */
+                btn.style.color = '#fff';
+                e.target.reset();
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'var(--primary)';
+                    btn.style.color = '#000';
+                    btn.disabled = false;
+                }, 3000);
+            }, 1200);
+        });
+
+        // Run Application
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
-</html>
+                                                                                                                                                                                                 </html> 
