@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Microfinance Bank</title>
+    
+    <!-- Google Fonts for a Premium Fintech Look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Variables for Premium Branding */
+        :root {
+            --primary: #047857; /* Rich Emerald Green */
+            --primary-light: #d1fae5;
+            --primary-dark: #064e3b;
+            --secondary: #fbbf24; /* Warm Gold */
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            padding-top: 70px; /* Space for fixed header */
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .brand svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-main);
+            transition: 0.3s;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 70px;
+            right: -100%;
+            width: 100%;
+            height: calc(100vh - 70px);
+            background: var(--surface);
+            transition: 0.3s ease-in-out;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+        }
+
+        .mobile-nav.open {
+            right: 0;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 1.25rem;
+            font-weight: 600;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-link:active, .nav-link.active {
+            color: var(--primary);
+        }
+
+        /* --- Page Routing --- */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+            min-height: calc(100vh - 70px);
+            padding-bottom: 40px;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Reusable UI Components --- */
+        .container {
+            padding: 0 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(4, 120, 87, 0.39);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--text-main);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 20px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .section-header {
+            margin: 32px 0 24px;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- Home Page Specifics --- */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            border-radius: 0 0 32px 32px;
+            padding: 40px 20px 60px;
+            color: white;
+            text-align: center;
+            margin-top: -10px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: -30px;
+            padding: 0 20px;
+        }
+
+        .action-card {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-card .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        /* --- Calculator Specifics --- */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-prefix {
+            position: absolute;
+            left: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .input-suffix {
+            position: absolute;
+            right: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px; /* Prevents iOS zoom */
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--background);
+            color: var(--text-main);
+            font-weight: 600;
+            transition: all 0.2s;
+            appearance: none;
+        }
+
+        .form-control.has-prefix { padding-left: 40px; }
+        .form-control.has-suffix { padding-right: 80px; }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--surface);
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+
+        .calc-result {
+            background: var(--primary-light);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            margin-top: 24px;
+            text-align: center;
+            display: none;
+        }
+
+        .calc-result.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .result-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 8px 0;
+        }
+
+        /* --- Services --- */
+        .service-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .service-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Loading Overlay */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--surface);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <!-- Initial Loader -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <p style="margin-top: 16px; font-weight: 600; color: var(--text-muted);">Initializing Demo...</p>
+    </div>
+
+    <!-- Header Navigation -->
+    <header>
+        <a href="#home" class="brand" id="brandLogo">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="brand-text dynamic-brand-name">Microfinance</span>
+        </a>
+        <button class="menu-toggle" id="menuBtn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="#home" class="nav-link">Home <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>
+        <a href="#about" class="nav-link">About Us <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>
+        <a href="#services" class="nav-link">Our Services <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>
+        <a href="#calculator" class="nav-link">Loan Calculator <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>
+        <a href="#contact" class="nav-link">Contact Us <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>
+        
+        <div style="margin-top: auto; padding-bottom: 20px;">
+            <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center;">© 2024 <span class="dynamic-brand-name">Microfinance</span>.</p>
+        </div>
+    </nav>
+
+    <!-- PAGE: HOME -->
+    <main id="home" class="page-section active">
+        <div class="hero">
+            <h1>Empowering Your Financial Growth.</h1>
+            <p>Welcome to <span class="dynamic-brand-name">our Bank</span>. Access quick loans, high-yield savings, and grow your business in Nigeria.</p>
+            <a href="#services" class="btn btn-secondary" style="max-width: 250px; margin: 0 auto; color: #000;">Explore Products</a>
+        </div>
+
+        <div class="quick-actions">
+            <a href="#calculator" class="action-card">
+                <div class="icon-wrapper">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                </div>
+                Get a Loan
+            </a>
+            <a href="#contact" class="action-card">
+                <div class="icon-wrapper">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                </div>
+                Open Account
+            </a>
+        </div>
+
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Us?</h2>
+                <p>Tailored financial solutions for everyday Nigerians.</p>
+            </div>
+
+            <div class="card" style="display: flex; align-items: center; gap: 16px; padding: 16px;">
+                <div style="width: 48px; height: 48px; background: #e0f2fe; color: #0284c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div>
+                    <h3 style="font-size: 1rem; margin-bottom: 4px;">Fast Approvals</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Get funded within 24 hours.</p>
+                </div>
+            </div>
+
+            <div class="card" style="display: flex; align-items: center; gap: 16px; padding: 16px;">
+                <div style="width: 48px; height: 48px; background: #fef3c7; color: #d97706; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <div>
+                    <h3 style="font-size: 1rem; margin-bottom: 4px;">Secure Banking</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">CBN Licensed and NDIC Insured.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- PAGE: ABOUT -->
+    <main id="about" class="page-section container">
+        <div class="section-header">
+            <h2>About Us</h2>
+            <p>Know more about <span class="dynamic-brand-name">Our Bank</span></p>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-bottom: 12px;">Our Mission</h3>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">To provide inclusive, accessible, and affordable financial services that drive economic empowerment for SMEs and individuals across Nigeria.</p>
+            
+            <h3 style="margin-bottom: 12px;">Our Vision</h3>
+            <p style="color: var(--text-muted);">To be the premier partner for grassroots financial growth, recognized for innovation, trust, and exceptional customer service.</p>
+        </div>
+
+        <div class="card" style="background: var(--primary); color: white;">
+            <h3 style="margin-bottom: 16px; color: white;">Stats at a Glance</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: 800; color: var(--secondary);">50k+</div>
+                    <div style="font-size: 0.85rem; opacity: 0.9;">Active Customers</div>
+                </div>
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: 800; color: var(--secondary);">₦5B+</div>
+                    <div style="font-size: 0.85rem; opacity: 0.9;">Loans Disbursed</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- PAGE: SERVICES -->
+    <main id="services" class="page-section container">
+        <div class="section-header">
+            <h2>Our Services</h2>
+            <p>Financial products designed for you.</p>
+        </div>
+
+        <div class="card">
+            <div class="service-item">
+                <div class="service-icon">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 4px;">SME Business Loans</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Scale your business with non-collateral micro-loans up to ₦5,000,000. Flexible repayment terms.</p>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-icon">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 4px;">Personal Loans</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Quick cash for emergencies, rent, or school fees. Get credited in minutes after approval.</p>
+                </div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-icon" style="background: #fef3c7; color: #d97706;">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 4px;">Target Savings</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Earn up to 15% interest p.a. while saving towards your goals.</p>
+                </div>
+            </div>
+        </div>
+        
+        <a href="#contact" class="btn btn-primary">Request a Service</a>
+    </main>
+
+    <!-- PAGE: CALCULATOR -->
+    <main id="calculator" class="page-section container">
+        <div class="section-header">
+            <h2>Loan Calculator</h2>
+            <p>Estimate your monthly repayments.</p>
+        </div>
+
+        <div class="card">
+            <div class="input-group">
+                <label for="loanAmount">Loan Amount</label>
+                <div class="input-wrapper">
+                    <span class="input-prefix">₦</span>
+                    <input type="number" id="loanAmount" class="form-control has-prefix" placeholder="500,000" value="500000">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="loanDuration">Duration</label>
+                <div class="input-wrapper">
+                    <input type="number" id="loanDuration" class="form-control has-suffix" placeholder="6" value="6">
+                    <span class="input-suffix">Months</span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="interestRate">Interest Rate (Monthly)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="interestRate" class="form-control has-suffix" placeholder="3.5" value="3.5" step="0.1">
+                    <span class="input-suffix">%</span>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="calculateLoan()">Calculate Repayment</button>
+
+            <div id="calcResult" class="calc-result">
+                <p style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600;">Estimated Monthly Payment</p>
+                <div class="result-amount" id="monthlyPayment">₦0</div>
+                <div style="display: flex; justify-content: space-between; margin-top: 16px; font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 16px;">
+                    <span style="color: var(--text-muted);">Total Repayment:</span>
+                    <span style="font-weight: 700;" id="totalRepayment">₦0</span>
+                </div>
+            </div>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; padding: 0 10px;">* This is an estimate. Actual rates may vary based on credit assessment.</p>
+    </main>
+
+    <!-- PAGE: CONTACT -->
+    <main id="contact" class="page-section container">
+        <div class="section-header">
+            <h2>Contact Us</h2>
+            <p>We are always here to help.</p>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-bottom: 16px;">Head Office</h3>
+            <p style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; color: var(--text-muted);">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0; color: var(--primary);"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                124 Broad Street, Marina, Lagos Island, Lagos, Nigeria.
+            </p>
+            <p style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: var(--text-muted);">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0; color: var(--primary);"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                +234 800 123 4567
+            </p>
+            <p style="display: flex; align-items: center; gap: 10px; color: var(--text-muted);">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0; color: var(--primary);"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                hello@<span class="dynamic-domain">microfinance</span>.com.ng
+            </p>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-bottom: 16px;">Send a Message</h3>
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" class="form-control" placeholder="Chukwuemeka Adebayo">
+            </div>
+            <div class="input-group">
+                <label>Phone Number</label>
+                <input type="tel" class="form-control" placeholder="080... ">
+            </div>
+            <div class="input-group">
+                <label>Message</label>
+                <textarea class="form-control" rows="4" placeholder="How can we help you?"></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="alert('Thank you! Your message has been sent.')">Submit Inquiry</button>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <!-- Import Supabase -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+
+        // Supabase Configuration from User Request
+        const SUPABASE_URL = 'https://xsdudtnszfszlvjpqrij.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzZHVkdG5zemZzemx2anBxcmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE1NjkwOTIsImV4cCI6MjA4NzE0NTA5Mn0.v51jTNwUGBMzX4PlAdBMNSj25XBVirLhiqStKSsFBuw';
+        
+        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // Utility: Extract URL Parameter
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Utility: Process Brand Name for Mobile Header (Acronym or Truncate)
+        function generateBrandAcronym(name) {
+            if (!name) return "MFB";
+            
+            // If name is short enough, keep it
+            if (name.length <= 15) return name;
+
+            const words = name.trim().split(/\s+/);
+            
+            // If it's a single long word, truncate it
+            if (words.length === 1) return name.substring(0, 12) + '...';
+
+            // Otherwise, form an acronym from the first letter of each word
+            return words.map(word => word.charAt(0).toUpperCase()).join('');
+        }
+
+        // Utility: Update DOM with brand data
+        function updateBrandUI(brandName) {
+            const displayBrand = generateBrandAcronym(brandName);
+            
+            // Update mobile header specific brand text
+            document.querySelector('.brand-text').textContent = displayBrand;
+
+            // Update all places where full brand name is needed
+            document.querySelectorAll('.dynamic-brand-name').forEach(el => {
+                // Skip the header text as it's already updated
+                if(!el.classList.contains('brand-text')) {
+                    el.textContent = brandName;
+                }
+            });
+
+            // Update title
+            document.title = `${brandName} - Microfinance Bank`;
+
+            // Update domain stub for email
+            const domainName = brandName.toLowerCase().replace(/[^a-z0-9]/g, '');
+            document.querySelectorAll('.dynamic-domain').forEach(el => {
+                el.textContent = domainName || 'microfinance';
+            });
+        }
+
+        // Fetch Data logic
+        async function initializeApp() {
+            const demoId = getUrlParameter('id');
+            let businessName = "Demo Microfinance Bank"; // Fallback name
+
+            if (demoId) {
+                try {
+                    const { data, error } = await supabase
+                        .from('Demos')
+                        .select('business_name')
+                        .eq('id', demoId)
+                        .single();
+
+                    if (error) {
+                        console.warn("Supabase Fetch Error:", error.message);
+                    } else if (data && data.business_name) {
+                        businessName = data.business_name;
+                    }
+                } catch (err) {
+                    console.error("Initialization error:", err);
+                }
+            } else {
+                console.log("No ID provided. Using default template data.");
+            }
+
+            // Apply to UI
+            updateBrandUI(businessName);
+
+            // Remove Loader
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.remove(), 500);
+            }, 500);
+        }
+
+        // Run Initialization
+        initializeApp();
+    </script>
+
+    <script>
+        // --- UI Logic (Routing, Menu, Calculator) ---
+        
+        // Navigation & Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function toggleMenu() {
+            mobileNav.classList.toggle('open');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('open');
+            });
+        });
+
+        // Hash Routing
+        function handleRouting() {
+            const hash = window.location.hash || '#home';
+            
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Remove active state from links
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Show target page
+            const targetPage = document.querySelector(hash);
+            if(targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0); // Reset scroll position
+            }
+
+            // Highlight link
+            const activeLink = document.querySelector(`.nav-link[href="${hash}"]`);
+            if(activeLink) activeLink.classList.add('active');
+        }
+
+        // Listen for hash changes
+        window.addEventListener('hashchange', handleRouting);
+        
+        // Initial route handling
+        window.addEventListener('DOMContentLoaded', handleRouting);
+
+        // Currency Formatter
+        const formatCurrency = (amount) => {
+            return new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0 }).format(amount);
+        };
+
+        // Loan Calculator Logic
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const duration = parseInt(document.getElementById('loanDuration').value);
+            const rate = parseFloat(document.getElementById('interestRate').value);
+
+            if (isNaN(amount) || isNaN(duration) || isNaN(rate) || amount <= 0 || duration <= 0) {
+                alert("Please enter valid positive numbers for all fields.");
+                return;
+            }
+
+            // Using simple flat interest calculation commonly used by Nigerian MFBs
+            // Interest = Principal * (Rate/100) * Months
+            const totalInterest = amount * (rate / 100) * duration;
+            const totalRepayment = amount + totalInterest;
+            const monthlyPayment = totalRepayment / duration;
+
+            // Display Results
+            document.getElementById('monthlyPayment').textContent = formatCurrency(monthlyPayment);
+            document.getElementById('totalRepayment').textContent = formatCurrency(totalRepayment);
+            document.getElementById('calcResult').classList.add('show');
+        }
+    </script>
+</body>
+</html>
