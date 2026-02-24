@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adeoluwakani Olubanjo | Strategic Portfolio</title>
+    <meta name="description" content="Mission to rebuild the world one marketing strategy at a time.">
+    
+    <!-- Premium Typography via Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & BASE SETUP (Mobile First)
+           ========================================================================== */
+        :root {
+            --bg-dark: #050505;
+            --surface-color: #111111;
+            --surface-light: #1a1a1a;
+            --text-main: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --gold-light: #FBF5B7;
+            --gold-base: #d4af37;
+            --gold-dark: #AA771C;
+            --metallic-gold: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            --transition-speed: 0.3s;
+            --nav-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent; /* Clean touch interactions */
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Typography Utilities */
+        .gold-text {
+            background: var(--metallic-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: var(--gold-base);
+            display: inline-block;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* ==========================================================================
+           2. NAVIGATION
+           ========================================================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--gold-base);
+            transition: var(--transition-speed);
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            height: 100vh;
+            width: 80%;
+            max-width: 300px;
+            background: var(--surface-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            transition: right 0.4s ease;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            border-left: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .nav-links.active {
+            right: 0;
+        }
+
+        .nav-links a {
+            font-size: 1.25rem;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            transition: color var(--transition-speed);
+            padding: 10px;
+        }
+
+        .nav-links a.active-link,
+        .nav-links a:active {
+            color: var(--gold-base);
+        }
+
+        /* Hamburger Animation */
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ==========================================================================
+           3. BUTTONS & UI ELEMENTS
+           ========================================================================== */
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 14px 28px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            border: 1px solid transparent;
+            min-height: 48px; /* Touch target */
+        }
+
+        .btn-primary {
+            background: var(--metallic-gold);
+            color: var(--bg-dark);
+            border: none;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gold-base);
+            border: 1px solid var(--gold-base);
+        }
+
+        .btn-outline:active {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* ==========================================================================
+           4. PAGE STRUCTURE & ROUTING
+           ========================================================================== */
+        .page {
+            display: none;
+            opacity: 0;
+            padding-top: var(--nav-height);
+            min-height: 100vh;
+            padding-bottom: 4rem;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           5. SECTION: HOME (#home)
+           ========================================================================== */
+        .hero {
+            height: calc(100vh - var(--nav-height));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            border-left: 2px solid var(--gold-base);
+            padding-left: 15px;
+        }
+
+        .hero-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .about-section {
+            padding: 4rem 0;
+            background: var(--surface-color);
+            margin-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 2rem 0;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            background: var(--surface-light);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-family: 'Cinzel', serif;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .home-cta {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        /* ==========================================================================
+           6. SECTION: WEBSITE PORTFOLIO (#web) & GRAPHICS (#graphics)
+           ========================================================================== */
+        .portfolio-header {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .portfolio-header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--surface-color);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--transition-speed);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 250px;
+            position: relative;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        .project-img::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, transparent, var(--surface-color));
+        }
+
+        .project-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .project-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .section-divider {
+            margin: 4rem 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(212, 175, 55, 0.2);
+            z-index: 1;
+        }
+
+        .section-divider span {
+            background: var(--bg-dark);
+            padding: 0 15px;
+            position: relative;
+            z-index: 2;
+            font-family: 'Cinzel', serif;
+            color: var(--gold-base);
+            font-size: 1.2rem;
+        }
+
+        /* Minor grid for graphic design images */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-grid img {
+            border-radius: 4px;
+            height: 120px;
+        }
+
+        /* ==========================================================================
+           7. MODAL SYSTEM
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background: var(--surface-color);
+            width: 100%;
+            max-width: 600px;
+            max-height: 85vh;
+            border: 1px solid var(--gold-base);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface-light);
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 10px;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .process-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .process-section h4 {
+            color: var(--gold-base);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .process-section p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           8. SECTION: CONTACT (#contact)
+           ========================================================================== */
+        .contact-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .contact-intro {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-dark);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-main);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold-base);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-alt {
+            margin-top: 3rem;
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        /* ==========================================================================
+           9. SCROLL ANIMATIONS
+           ========================================================================== */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           10. DESKTOP OPTIMIZATIONS (Media Queries)
+           ========================================================================== */
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 4rem; }
+            .hero p { font-size: 1.25rem; }
+            .hero-btns { flex-direction: row; }
+            
+            .hamburger { display: none; }
+            
+            .nav-links {
+                position: static;
+                height: auto;
+                width: auto;
+                flex-direction: row;
+                background: transparent;
+                box-shadow: none;
+                border: none;
+            }
+            
+            .nav-links a { font-size: 0.9rem; padding: 0; }
+            
+            .about-grid { grid-template-columns: 1fr 1fr; align-items: center; }
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .project-actions { flex-direction: row; }
+            .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+            
+            .contact-wrapper { padding: 3rem; }
+        }
+
+        @media (min-width: 1024px) {
+            .projects-grid { grid-template-columns: repeat(3, 1fr); }
+            .hero h1 { font-size: 5rem; }
+            /* Hover effects allowed ONLY on desktop since mobile relies on tap */
+            .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); }
+            .nav-links a:hover { color: var(--gold-base); }
+            .project-card:hover { transform: translateY(-5px); border-color: var(--gold-base); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="#home" class="logo brand-font gold-text">ADEKANI</a>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="nav-links">
+            <a href="#home" class="nav-item">Home</a>
+            <a href="#web" class="nav-item">Web Portfolio</a>
+            <a href="#graphics" class="nav-item">Graphic Design</a>
+            <a href="#contact" class="nav-item">Contact</a>
+        </div>
+    </nav>
+
+    <!-- MAIN APP CONTAINER -->
+    <main id="app">
+
+        <!-- ==============================================
+             PAGE: HOME 
+             ============================================== -->
+        <section id="home" class="page active">
+            <div class="container">
+                <div class="hero">
+                    <h1 class="animate-on-scroll">Adeoluwakani<br><span class="gold-text">Olubanjo</span></h1>
+                    <p class="animate-on-scroll" style="transition-delay: 0.1s;">"Mission to rebuild the world one marketing strategy at a time."</p>
+                    <div class="hero-btns animate-on-scroll" style="transition-delay: 0.2s;">
+                        <a href="#web" class="btn btn-primary">View Website Portfolio</a>
+                        <a href="#graphics" class="btn btn-outline">View Graphic Design</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <div class="container about-grid">
+                    <div class="animate-on-scroll">
+                        <h2 class="section-title" style="text-align: left;"><span class="gold-text">Strategic</span> Intent</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                            As a specialist in both web development and graphic design, my approach is rooted in structure and clarity. I don't just build websites; I engineer digital authority. Every layout, color choice, and line of code is deployed to align perfectly with your broader business strategy.
+                        </p>
+                        <p style="color: var(--text-muted);">
+                            The result? Premium digital experiences that command respect, clarify complex messaging, and drive tangible results.
+                        </p>
+                    </div>
+                    
+                    <div class="stats-container animate-on-scroll" id="stats-trigger">
+                        <div class="stat-item">
+                            <span class="stat-number gold-text" data-target="15">0</span>
+                            <span class="stat-label">Website Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number gold-text" data-target="2">0</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container home-cta animate-on-scroll">
+                <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Ready to explore the work?</h3>
+                <a href="#web" class="btn btn-primary" style="width: 100%; max-width: 300px;">Dive Into Case Studies</a>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE: WEBSITE PORTFOLIO 
+             ============================================== -->
+        <section id="web" class="page">
+            <div class="container">
+                <div class="portfolio-header animate-on-scroll">
+                    <h2 class="section-title"><span class="gold-text">Engineered</span> Websites</h2>
+                    <p>Showcasing structural design, strategic alignment, and technical execution. Select 'Read Process' to dive into the methodology behind each build.</p>
+                </div>
+
+                <!-- Featured Projects -->
+                <div class="projects-grid" id="featured-projects">
+                    <!-- Projects injected via JS -->
+                </div>
+
+                <div class="section-divider animate-on-scroll">
+                    <span>Additional Projects</span>
+                </div>
+
+                <!-- Secondary Projects -->
+                <div class="projects-grid" id="secondary-projects">
+                    <!-- Projects injected via JS -->
+                </div>
+
+                <div class="home-cta animate-on-scroll">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Explore Visual Communication</h3>
+                    <a href="#graphics" class="btn btn-primary" style="width: 100%; max-width: 300px;">View Graphic Design</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE: GRAPHIC DESIGN 
+             ============================================== -->
+        <section id="graphics" class="page">
+            <div class="container">
+                <div class="portfolio-header animate-on-scroll">
+                    <h2 class="section-title"><span class="gold-text">Strategic</span> Visuals</h2>
+                    <p>Brand identity, marketing collateral, and conversion-focused design.</p>
+                </div>
+
+                <div class="projects-grid">
+                    
+                    <!-- GOFI -->
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-content">
+                            <h3 class="gold-text">GOFI (Men's Fashion)</h3>
+                            <p>Logo redesign, brand colors, and marketing campaign creatives structured for high-end retail positioning.</p>
+                            <div class="gallery-grid">
+                                <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=200&q=80" alt="Fashion 1">
+                                <img src="https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=200&q=80" alt="Fashion 2">
+                                <img src="https://images.unsplash.com/photo-1490578474895-699bc4e35154?auto=format&fit=crop&w=200&q=80" alt="Fashion 3">
+                                <img src="https://images.unsplash.com/photo-1594938298598-71882cbbc5e2?auto=format&fit=crop&w=200&q=80" alt="Fashion 4">
+                            </div>
+                            <a href="#" class="btn btn-outline" style="width: 100%;" onclick="alert('Redirects to Google Drive Drive in production'); return false;">View More Designs</a>
+                        </div>
+                    </div>
+
+                    <!-- Icon Automotive -->
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-content">
+                            <h3 class="gold-text">Icon Automotive</h3>
+                            <p>Social media creatives, ads, and conversion-focused visuals to establish a professional front for partnerships.</p>
+                            <div class="gallery-grid">
+                                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=200&q=80" alt="Car 1">
+                                <img src="https://images.unsplash.com/photo-1503376713444-23db17c8cfeb?auto=format&fit=crop&w=200&q=80" alt="Car 2">
+                                <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=200&q=80" alt="Car 3">
+                            </div>
+                            <a href="#" class="btn btn-outline" style="width: 100%;" onclick="alert('Redirects to Google Drive Drive in production'); return false;">View More Designs</a>
+                        </div>
+                    </div>
+
+                    <!-- Misc -->
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-content">
+                            <h3 class="gold-text">Miscellaneous Projects</h3>
+                            <p>Brochures, book covers, e-books, and engaging social media creatives tailored to various industries.</p>
+                            <div class="gallery-grid">
+                                <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=200&q=80" alt="Book">
+                                <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=200&q=80" alt="Brochure">
+                                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&q=80" alt="Social">
+                                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=200&q=80" alt="Branding">
+                            </div>
+                            <a href="#" class="btn btn-outline" style="width: 100%;" onclick="alert('Redirects to Google Drive Drive in production'); return false;">View More Designs</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="home-cta animate-on-scroll">
+                    <a href="#web" class="btn btn-primary" style="width: 100%; max-width: 300px;">Back to Web Portfolio</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE: CONTACT 
+             ============================================== -->
+        <section id="contact" class="page">
+            <div class="container">
+                <div class="contact-wrapper animate-on-scroll">
+                    <div class="contact-intro">
+                        <h2 class="section-title"><span class="gold-text">Initiate</span> Contact</h2>
+                        <p style="color: var(--text-muted);">Partner with a strategist. Let's build a digital presence that commands authority and drives your business goals forward.</p>
+                    </div>
+
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required placeholder="john@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required placeholder="Hello Adekani, I saw your portfolio and I would like to discuss a project."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message via WhatsApp</button>
+                    </form>
+
+                    <div class="contact-alt">
+                        <p style="margin-bottom: 1rem; color: var(--text-muted);">Or reach out directly:</p>
+                        <a href="https://wa.me/2347015281093" target="_blank" class="btn btn-outline" style="width: 100%;">Direct WhatsApp Chat</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==============================================
+         MODAL SYSTEM FOR PROJECT DETAILS
+         ============================================== -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="gold-text" id="modalTitle">Project Title</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         JAVASCRIPT LOGIC
+         ============================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* --- 1. ROUTING SYSTEM (SPA) --- */
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-item');
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-links');
+
+            function handleRouting() {
+                let hash = window.location.hash;
+                if (!hash) hash = '#home';
+
+                // Hide all pages, show target
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                const targetPage = document.querySelector(hash);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                    // Re-trigger scroll animations for the new page
+                    setTimeout(initScrollAnimations, 50);
+                }
+
+                // Update nav active state
+                navLinks.forEach(link => {
+                    link.classList.remove('active-link');
+                    if (link.getAttribute('href') === hash) {
+                        link.classList.add('active-link');
+                    }
+                });
+
+                // Close mobile menu if open
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+
+            window.addEventListener('hashchange', handleRouting);
+            handleRouting(); // Initial load
+
+            // Mobile Menu Toggle
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            /* --- 2. SCROLL ANIMATIONS --- */
+            let observer;
+            function initScrollAnimations() {
+                const elements = document.querySelectorAll('.page.active .animate-on-scroll');
+                
+                if(observer) observer.disconnect();
+                
+                observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            
+                            // Check if it's the stats section to trigger counter
+                            if(entry.target.id === 'stats-trigger' && !entry.target.dataset.animated) {
+                                runCounters();
+                                entry.target.dataset.animated = 'true';
+                            }
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+                elements.forEach(el => observer.observe(el));
+            }
+
+            /* --- 3. ANIMATED COUNTERS --- */
+            function animateValue(obj, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start) + "+";
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            function runCounters() {
+                const statNumbers = document.querySelectorAll('.stat-number');
+                statNumbers.forEach(stat => {
+                    const target = parseInt(stat.getAttribute('data-target'));
+                    animateValue(stat, 0, target, 2000); // 2 second animation
+                });
+            }
+
+            /* --- 4. PROJECT DATA & GENERATION --- */
+            const webProjects = [
+                {
+                    id: 1,
+                    title: "Louis Eduplus Ltd",
+                    type: "featured",
+                    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80",
+                    desc: "UK educational consultancy requiring legitimacy and credibility.",
+                    link: "https://louiseduplusltd.com",
+                    process: {
+                        Problem: "The brand lacked a digital footprint that reflected their authority as a UK educational consultancy.",
+                        Strategy: "Implemented a strategy-first content alignment focusing on book credibility and institutional trust.",
+                        Structure: "Clean, authoritative layout prioritizing key services and success metrics.",
+                        Execution: "Developed a responsive, fast-loading site emphasizing typography and clear calls to action.",
+                        Outcome: "Established immediate legitimacy, aiding in client acquisition and institutional partnerships."
+                    }
+                },
+                {
+                    id: 2,
+                    title: "Afriglobal Health Limited",
+                    type: "featured",
+                    image: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=600&q=80",
+                    desc: "Nigerian-American health brand website redesign.",
+                    link: "https://afriglobalhealth.com",
+                    process: {
+                        Problem: "Complex business model required severe simplification for the end-user while maintaining professional accreditation.",
+                        Strategy: "Used UX principles to improve brand clarity and accreditation positioning.",
+                        Structure: "Categorized services logically with intuitive navigation paths for different patient demographics.",
+                        Execution: "Modernized the visual identity within the web space, ensuring HIPAA/local compliance standards in data flow.",
+                        Outcome: "Dramatically improved user journey, making appointment booking and service discovery seamless."
+                    }
+                },
+                {
+                    id: 3,
+                    title: "Steff Global Tech",
+                    type: "featured",
+                    image: "https://images.unsplash.com/photo-1509391366360-1e97f52ce23b?auto=format&fit=crop&w=600&q=80",
+                    desc: "Solar brand requiring structured online service presentation.",
+                    link: "https://steffglobaltech.com",
+                    process: {
+                        Problem: "No existing online presence to capture growing market demand for solar solutions.",
+                        Strategy: "Built an online presence from the ground up focusing on service clarity.",
+                        Structure: "Structured presentation of residential vs commercial solutions.",
+                        Execution: "Deployed a clean, eco-tech inspired interface.",
+                        Outcome: "Successfully launched brand into the digital space, generating inbound leads."
+                    }
+                },
+                {
+                    id: 4,
+                    title: "Assertio",
+                    type: "featured",
+                    image: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=600&q=80",
+                    desc: "Branding & branded merchandise platform.",
+                    link: "https://assertio.vercel.app",
+                    process: {
+                        Problem: "Abstract messaging made it difficult for potential clients to understand the core offering.",
+                        Strategy: "Clarified messaging by grounding communication structure.",
+                        Structure: "Visual-heavy portfolio approach paired with direct copywriting.",
+                        Execution: "Developed a sleek, modern interface allowing the merchandise to speak for itself.",
+                        Outcome: "Increased user engagement and clearer value proposition delivery."
+                    }
+                },
+                {
+                    id: 5,
+                    title: "Icon Automotive",
+                    type: "featured",
+                    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=600&q=80",
+                    desc: "Automotive platform requiring complex database integration.",
+                    link: "https://icon-automotive.pages.dev",
+                    process: {
+                        Problem: "Needed a professional front for partnerships and a reliable system for car listings.",
+                        Strategy: "Architected a scalable solution using Supabase for database management.",
+                        Structure: "Dynamic car listing system and robust request system for vehicles.",
+                        Execution: "Integrated front-end UI with backend Supabase logic for real-time inventory updates.",
+                        Outcome: "Delivered a fully functional, dynamic automotive marketplace."
+                    }
+                },
+                {
+                    id: 6,
+                    title: "De-Sure Rejfresh Tech",
+                    type: "featured",
+                    image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=600&q=80",
+                    desc: "Solar installation company web presence.",
+                    link: "https://rejfreshrenewableenergy.com",
+                    process: {
+                        Problem: "Required a structured web presence to compete in the renewable energy sector.",
+                        Strategy: "Positioned as a reliable, technical authority in installation.",
+                        Structure: "Clear breakdown of installation processes and technical specifications.",
+                        Execution: "Developed a professional, accessible single-point-of-truth website.",
+                        Outcome: "Enhanced brand credibility and streamlined customer onboarding."
+                    }
+                },
+                {
+                    id: 7,
+                    title: "Aurelia (Chess App)",
+                    type: "secondary",
+                    image: "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&w=400&q=80",
+                    desc: "Interactive chess application demonstrating complex logic handling.",
+                    link: "https://aurelia-chess.vercel.app",
+                    process: {
+                        Problem: "Personal project to demonstrate complex state management and game logic.",
+                        Strategy: "Focus on clean UX and responsive game board.",
+                        Structure: "Component-based architecture.",
+                        Execution: "Implemented full chess ruleset in client-side environment.",
+                        Outcome: "Successfully deployed interactive application."
+                    }
+                },
+                {
+                    id: 8,
+                    title: "Jito Properties",
+                    type: "secondary",
+                    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=400&q=80",
+                    desc: "Real estate property showcasing platform.",
+                    link: "https://jito-properties.vercel.app",
+                    process: {
+                        Problem: "Needed a digital catalog for property listings.",
+                        Strategy: "Visual-first approach highlighting property imagery.",
+                        Structure: "Grid-based listing system with filtering logic.",
+                        Execution: "Built a fast, responsive gallery interface.",
+                        Outcome: "Improved property visibility for agents."
+                    }
+                }
+            ];
+
+            const featuredContainer = document.getElementById('featured-projects');
+            const secondaryContainer = document.getElementById('secondary-projects');
+
+            function generateProjectCard(project) {
+                return `
+                    <div class="project-card animate-on-scroll">
+                        <div class="project-img">
+                            <img src="${project.image}" alt="${project.title}">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="gold-text">${project.title}</h3>
+                            <p>${project.desc}</p>
+                            <div class="project-actions">
+                                <a href="${project.link}" target="_blank" class="btn btn-outline" style="flex:1;">View Site</a>
+                                <button class="btn btn-primary open-process" data-id="${project.id}" style="flex:1;">Read Process</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            webProjects.forEach(proj => {
+                if(proj.type === 'featured') {
+                    featuredContainer.innerHTML += generateProjectCard(proj);
+                } else {
+                    secondaryContainer.innerHTML += generateProjectCard(proj);
+                }
+            });
+
+            /* --- 5. MODAL LOGIC --- */
+            const modal = document.getElementById('projectModal');
+            const closeModal = document.getElementById('closeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+
+            // Event delegation for dynamically generated buttons
+            document.body.addEventListener('click', (e) => {
+                if(e.target.classList.contains('open-process')) {
+                    const id = parseInt(e.target.getAttribute('data-id'));
+                    const project = webProjects.find(p => p.id === id);
+                    
+                    if(project) {
+                        modalTitle.textContent = project.title;
+                        modalBody.innerHTML = `
+                            <div class="process-section">
+                                <h4>The Problem</h4>
+                                <p>${project.process.Problem}</p>
+                            </div>
+                            <div class="process-section">
+                                <h4>Strategy</h4>
+                                <p>${project.process.Strategy}</p>
+                            </div>
+                            <div class="process-section">
+                                <h4>Structure</h4>
+                                <p>${project.process.Structure}</p>
+                            </div>
+                            <div class="process-section">
+                                <h4>Execution</h4>
+                                <p>${project.process.Execution}</p>
+                            </div>
+                            <div class="process-section">
+                                <h4>Outcome</h4>
+                                <p>${project.process.Outcome}</p>
+                            </div>
+                        `;
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                    }
+                }
+            });
+
+            closeModal.addEventListener('click', () => {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            /* --- 6. CONTACT FORM REDIRECT --- */
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('name').value;
+                const message = document.getElementById('message').value || "Hello Adekani, I saw your portfolio and I would like to discuss a project.";
+                
+                const encodedMessage = encodeURIComponent(`Name: ${name}\n\n${message}`);
+                const whatsappUrl = `https://wa.me/2347015281093?text=${encodedMessage}`;
+                
+                window.open(whatsappUrl, '_blank');
+            });
+
+        });
+    </script>
+</body>
+</html>
