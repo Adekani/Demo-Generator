@@ -697,7 +697,7 @@
             const words = businessName.trim().split(/\s+/);
             
             // If name is too long or has more than 2 words, create an acronym
-            if (businessName.length > 12 || words.length > 2) {
+            if (businessName.length > 25 || words.length > 3) {
                 navName = words.map(word => word[0]).join('').toUpperCase();
             }
             
