@@ -1584,7 +1584,7 @@
 
   function smartName(name) {
     if (!name) return FALLBACK_NAME;
-    if (name.length <= 25) return name;
+    if (name.length <= 30) return name;
     // Try acronym if many words
     const words = name.trim().split(/\s+/);
     if (words.length >= 3) return getAcronym(name);
